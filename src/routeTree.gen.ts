@@ -10,33 +10,160 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as ExploreRouteImport } from './routes/explore'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as SignupRouteImport } from './routes/signup'
+import { Route as AuthenticatedAddMaterialRouteImport } from './routes/_authenticated/add-material'
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedMyMaterialsRouteImport } from './routes/_authenticated/my-materials'
+import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
+import { Route as MaterialIdRouteImport } from './routes/material.$id'
+import { Route as AuthenticatedEditMaterialIdRouteImport } from './routes/_authenticated/edit-material.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExploreRoute = ExploreRouteImport.update({
+  id: '/explore',
+  path: '/explore',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SignupRoute = SignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedAddMaterialRoute =
+  AuthenticatedAddMaterialRouteImport.update({
+    id: '/add-material',
+    path: '/add-material',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedMyMaterialsRoute =
+  AuthenticatedMyMaterialsRouteImport.update({
+    id: '/my-materials',
+    path: '/my-materials',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const MaterialIdRoute = MaterialIdRouteImport.update({
+  id: '/material/$id',
+  path: '/material/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedEditMaterialIdRoute =
+  AuthenticatedEditMaterialIdRouteImport.update({
+    id: '/edit-material/$id',
+    path: '/edit-material/$id',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/explore': typeof ExploreRoute
+  '/login': typeof LoginRoute
+  '/signup': typeof SignupRoute
+  '/add-material': typeof AuthenticatedAddMaterialRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/my-materials': typeof AuthenticatedMyMaterialsRoute
+  '/profile': typeof AuthenticatedProfileRoute
+  '/material/$id': typeof MaterialIdRoute
+  '/edit-material/$id': typeof AuthenticatedEditMaterialIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/explore': typeof ExploreRoute
+  '/login': typeof LoginRoute
+  '/signup': typeof SignupRoute
+  '/add-material': typeof AuthenticatedAddMaterialRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/my-materials': typeof AuthenticatedMyMaterialsRoute
+  '/profile': typeof AuthenticatedProfileRoute
+  '/material/$id': typeof MaterialIdRoute
+  '/edit-material/$id': typeof AuthenticatedEditMaterialIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/explore': typeof ExploreRoute
+  '/login': typeof LoginRoute
+  '/signup': typeof SignupRoute
+  '/_authenticated/add-material': typeof AuthenticatedAddMaterialRoute
+  '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/my-materials': typeof AuthenticatedMyMaterialsRoute
+  '/_authenticated/profile': typeof AuthenticatedProfileRoute
+  '/material/$id': typeof MaterialIdRoute
+  '/_authenticated/edit-material/$id': typeof AuthenticatedEditMaterialIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/explore'
+    | '/login'
+    | '/signup'
+    | '/add-material'
+    | '/dashboard'
+    | '/my-materials'
+    | '/profile'
+    | '/material/$id'
+    | '/edit-material/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/explore'
+    | '/login'
+    | '/signup'
+    | '/add-material'
+    | '/dashboard'
+    | '/my-materials'
+    | '/profile'
+    | '/material/$id'
+    | '/edit-material/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/explore'
+    | '/login'
+    | '/signup'
+    | '/_authenticated/add-material'
+    | '/_authenticated/dashboard'
+    | '/_authenticated/my-materials'
+    | '/_authenticated/profile'
+    | '/material/$id'
+    | '/_authenticated/edit-material/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  ExploreRoute: typeof ExploreRoute
+  LoginRoute: typeof LoginRoute
+  SignupRoute: typeof SignupRoute
+  MaterialIdRoute: typeof MaterialIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,22 +175,106 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/explore': {
+      id: '/explore'
+      path: '/explore'
+      fullPath: '/explore'
+      preLoaderRoute: typeof ExploreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/add-material': {
+      id: '/_authenticated/add-material'
+      path: '/add-material'
+      fullPath: '/add-material'
+      preLoaderRoute: typeof AuthenticatedAddMaterialRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/dashboard': {
+      id: '/_authenticated/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/my-materials': {
+      id: '/_authenticated/my-materials'
+      path: '/my-materials'
+      fullPath: '/my-materials'
+      preLoaderRoute: typeof AuthenticatedMyMaterialsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/profile': {
+      id: '/_authenticated/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof AuthenticatedProfileRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/material/$id': {
+      id: '/material/$id'
+      path: '/material/$id'
+      fullPath: '/material/$id'
+      preLoaderRoute: typeof MaterialIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/edit-material/$id': {
+      id: '/_authenticated/edit-material/$id'
+      path: '/edit-material/$id'
+      fullPath: '/edit-material/$id'
+      preLoaderRoute: typeof AuthenticatedEditMaterialIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAddMaterialRoute: typeof AuthenticatedAddMaterialRoute
+  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedMyMaterialsRoute: typeof AuthenticatedMyMaterialsRoute
+  AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
+  AuthenticatedEditMaterialIdRoute: typeof AuthenticatedEditMaterialIdRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAddMaterialRoute: AuthenticatedAddMaterialRoute,
+  AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedMyMaterialsRoute: AuthenticatedMyMaterialsRoute,
+  AuthenticatedProfileRoute: AuthenticatedProfileRoute,
+  AuthenticatedEditMaterialIdRoute: AuthenticatedEditMaterialIdRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  ExploreRoute: ExploreRoute,
+  LoginRoute: LoginRoute,
+  SignupRoute: SignupRoute,
+  MaterialIdRoute: MaterialIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
