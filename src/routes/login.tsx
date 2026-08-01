@@ -15,10 +15,16 @@ export const Route = createFileRoute("/login")({
       { name: "description", content: "Log in to your Learnova account to manage study materials." },
       { property: "og:title", content: "Log In | Learnova" },
       { property: "og:description", content: "Log in to manage your study materials." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/login" },
+      { name: "twitter:card", content: "summary" },
+      { name: "robots", content: "noindex, follow" },
     ],
+    links: [{ rel: "canonical", href: "/login" }],
   }),
   component: Login,
 });
+
 
 function Login() {
   const navigate = useNavigate();

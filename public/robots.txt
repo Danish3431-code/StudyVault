@@ -12,3 +12,9 @@ Allow: /
 
 User-agent: *
 Allow: /
+Disallow: /dashboard
+Disallow: /my-materials
+Disallow: /add-material
+Disallow: /edit-material
+Disallow: /profile
+Disallow: /login

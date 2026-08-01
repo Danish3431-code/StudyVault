@@ -11,17 +11,24 @@ import { supabase } from "@/integrations/supabase/client";
 export const Route = createFileRoute("/signup")({
   head: () => ({
     meta: [
-      { title: "Sign Up | Learnova" },
+      { title: "Sign Up Free | Learnova Study Material Sharing" },
       {
         name: "description",
-        content: "Create a free Learnova account to upload and share study materials.",
+        content:
+          "Create a free Learnova account to upload, organise and share study materials with other students.",
       },
-      { property: "og:title", content: "Sign Up | Learnova" },
+      { property: "og:title", content: "Sign Up Free | Learnova" },
       { property: "og:description", content: "Create a free account to share study materials." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/signup" },
+      { name: "twitter:card", content: "summary" },
+      { name: "robots", content: "index, follow" },
     ],
+    links: [{ rel: "canonical", href: "/signup" }],
   }),
   component: Signup,
 });
+
 
 function Signup() {
   const navigate = useNavigate();
