@@ -17,6 +17,7 @@ export const Route = createFileRoute("/_authenticated/profile")({
       { name: "description", content: "View and update your Learnova profile details." },
       { property: "og:title", content: "Profile | Learnova" },
       { property: "og:description", content: "View and update your profile details." },
+      { name: "robots", content: "noindex, nofollow" },
     ],
   }),
   component: Profile,

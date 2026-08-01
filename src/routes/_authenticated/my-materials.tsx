@@ -29,6 +29,7 @@ export const Route = createFileRoute("/_authenticated/my-materials")({
       { name: "description", content: "Manage, edit and delete your uploaded study materials." },
       { property: "og:title", content: "My Materials | Learnova" },
       { property: "og:description", content: "Manage your uploaded study materials." },
+      { name: "robots", content: "noindex, nofollow" },
     ],
   }),
   component: MyMaterials,

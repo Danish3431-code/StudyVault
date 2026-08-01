@@ -15,6 +15,7 @@ export const Route = createFileRoute("/_authenticated/dashboard")({
       { name: "description", content: "Your Learnova dashboard with study material statistics." },
       { property: "og:title", content: "Dashboard | Learnova" },
       { property: "og:description", content: "Your study material statistics at a glance." },
+      { name: "robots", content: "noindex, nofollow" },
     ],
   }),
   component: Dashboard,

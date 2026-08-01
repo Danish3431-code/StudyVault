@@ -6,21 +6,45 @@ import { Card, CardContent } from "@/components/ui/card";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Learnova — Study. Store. Share." },
+      { title: "Learnova — Share & Download Free Study Materials" },
       {
         name: "description",
         content:
-          "Upload, manage, and share your study materials in one simple platform built for students.",
+          "Learnova lets students upload, organise and share study materials — PDFs, slides and notes — free, in one simple platform.",
       },
-      { property: "og:title", content: "Learnova — Study. Store. Share." },
+      { name: "keywords", content: "study materials, student notes, share PDF notes, free study resources, lecture slides" },
+      { property: "og:title", content: "Learnova — Share & Download Free Study Materials" },
       {
         property: "og:description",
         content: "Upload, manage, and share your study materials in one simple platform.",
+      },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "robots", content: "index, follow" },
+    ],
+    links: [{ rel: "canonical", href: "/" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: "Learnova",
+          description:
+            "Upload, manage, and share study materials in one simple platform built for students.",
+          potentialAction: {
+            "@type": "SearchAction",
+            target: "/explore?q={search_term_string}",
+            "query-input": "required name=search_term_string",
+          },
+        }),
       },
     ],
   }),
   component: Index,
 });
+
 
 const features = [
   {

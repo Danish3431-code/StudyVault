@@ -33,12 +33,16 @@ import { formatDate, formatSize, type Material } from "@/lib/materials";
 export const Route = createFileRoute("/material/$id")({
   head: () => ({
     meta: [
-      { title: "Material Details | Learnova" },
-      { name: "description", content: "View and download a study material shared on Learnova." },
-      { property: "og:title", content: "Material Details | Learnova" },
+      { title: "Study Material Details | Learnova" },
+      { name: "description", content: "View, download and share a study material posted on Learnova." },
+      { property: "og:title", content: "Study Material Details | Learnova" },
       { property: "og:description", content: "View and download a study material on Learnova." },
+      { property: "og:type", content: "article" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "robots", content: "index, follow" },
     ],
   }),
+
   component: MaterialDetails,
 });
 

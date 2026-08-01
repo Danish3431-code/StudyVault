@@ -31,6 +31,7 @@ export const Route = createFileRoute("/_authenticated/add-material")({
       { name: "description", content: "Upload a new study material file to your Learnova account." },
       { property: "og:title", content: "Add Material | Learnova" },
       { property: "og:description", content: "Upload a new study material to your account." },
+      { name: "robots", content: "noindex, nofollow" },
     ],
   }),
   component: AddMaterial,

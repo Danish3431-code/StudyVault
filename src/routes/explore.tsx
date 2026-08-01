@@ -10,20 +10,38 @@ import type { Material } from "@/lib/materials";
 export const Route = createFileRoute("/explore")({
   head: () => ({
     meta: [
-      { title: "Explore Study Materials | Learnova" },
+      { title: "Explore Free Study Materials & Notes | Learnova" },
       {
         name: "description",
-        content: "Browse and download public study materials shared by students on Learnova.",
+        content:
+          "Browse, search and download free public study materials, lecture notes and slides shared by students on Learnova.",
       },
-      { property: "og:title", content: "Explore Study Materials | Learnova" },
+      { property: "og:title", content: "Explore Free Study Materials & Notes | Learnova" },
       {
         property: "og:description",
         content: "Browse and download public study materials shared by students.",
+      },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/explore" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "robots", content: "index, follow" },
+    ],
+    links: [{ rel: "canonical", href: "/explore" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          name: "Explore Study Materials",
+          description: "Public study materials shared by the Learnova community.",
+        }),
       },
     ],
   }),
   component: Explore,
 });
+
 
 type Row = Material & { profiles: { username: string | null; full_name: string } | null };
 
