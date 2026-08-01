@@ -143,7 +143,7 @@ function RootComponent() {
             <Outlet />
           </main>
           <footer className="border-t border-border py-6 text-center text-sm text-muted-foreground">
-            Learnova — Study. Store. Share.
+            @ByDani
           </footer>
         </div>
         <Toaster position="top-center" richColors />
