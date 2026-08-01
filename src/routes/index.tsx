@@ -27,21 +27,25 @@ const features = [
     icon: Upload,
     title: "Upload Materials",
     text: "Add PDFs, slides, documents and images in seconds.",
+    to: "/add-material",
   },
   {
     icon: FolderOpen,
     title: "Manage Your Files",
     text: "Edit, replace or delete your material anytime.",
+    to: "/my-materials",
   },
   {
     icon: Share2,
     title: "Public Sharing",
     text: "Make a material public and share it with a link.",
+    to: "/explore",
   },
   {
     icon: Zap,
     title: "Easy Access",
     text: "Your files stay in your account, available anywhere.",
+    to: "/dashboard",
   },
 ];
 
@@ -71,15 +75,17 @@ function Index() {
       <section className="mx-auto max-w-6xl px-4 pb-24">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {features.map((f) => (
-            <Card key={f.title} className="h-full">
-              <CardContent className="pt-6">
-                <span className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-                  <f.icon className="h-5 w-5" />
-                </span>
-                <h2 className="text-base font-semibold">{f.title}</h2>
-                <p className="mt-1 text-sm text-muted-foreground">{f.text}</p>
-              </CardContent>
-            </Card>
+            <Link key={f.title} to={f.to} className="group block">
+              <Card className="h-full transition-shadow group-hover:shadow-md">
+                <CardContent className="pt-6">
+                  <span className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+                    <f.icon className="h-5 w-5" />
+                  </span>
+                  <h2 className="text-base font-semibold">{f.title}</h2>
+                  <p className="mt-1 text-sm text-muted-foreground">{f.text}</p>
+                </CardContent>
+              </Card>
+            </Link>
           ))}
         </div>
       </section>
