@@ -32,6 +32,7 @@ export const Route = createFileRoute("/_authenticated/edit-material/$id")({
       { name: "description", content: "Update your study material details or replace its file." },
       { property: "og:title", content: "Edit Material | Learnova" },
       { property: "og:description", content: "Update your study material details." },
+      { name: "robots", content: "noindex, nofollow" },
     ],
   }),
   component: EditMaterial,
