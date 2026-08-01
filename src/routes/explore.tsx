@@ -16,17 +16,35 @@ export const Route = createFileRoute("/explore")({
         content:
           "Browse, search and download free public study materials, lecture notes and slides shared by students on Learnova.",
       },
-      { property: "og:title", content: "Explore Free Study Materials & Notes | Learnova" },
+      {
+        property: "og:title",
+        content: "Explore Free Study Materials & Notes | Learnova",
+      },
       {
         property: "og:description",
-        content: "Browse and download public study materials shared by students.",
+        content:
+          "Browse and download public study materials shared by students.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "/explore" },
+      {
+        property: "og:url",
+        content: "https://learn-stash-share.lovable.app/explore",
+      },
       { name: "twitter:card", content: "summary_large_image" },
+      {
+        name: "twitter:title",
+        content: "Explore Free Study Materials & Notes | Learnova",
+      },
+      {
+        name: "twitter:description",
+        content:
+          "Browse and download public study materials shared by students.",
+      },
       { name: "robots", content: "index, follow" },
     ],
-    links: [{ rel: "canonical", href: "/explore" }],
+    links: [
+      { rel: "canonical", href: "https://learn-stash-share.lovable.app/explore" },
+    ],
     scripts: [
       {
         type: "application/ld+json",

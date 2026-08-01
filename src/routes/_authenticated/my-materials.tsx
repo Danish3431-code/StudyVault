@@ -26,10 +26,34 @@ export const Route = createFileRoute("/_authenticated/my-materials")({
   head: () => ({
     meta: [
       { title: "My Materials | Learnova" },
-      { name: "description", content: "Manage, edit and delete your uploaded study materials." },
+      {
+        name: "description",
+        content:
+          "Manage, edit and delete your uploaded study materials on Learnova.",
+      },
       { property: "og:title", content: "My Materials | Learnova" },
-      { property: "og:description", content: "Manage your uploaded study materials." },
+      {
+        property: "og:description",
+        content: "Manage, edit and delete your uploaded study materials.",
+      },
+      { property: "og:type", content: "website" },
+      {
+        property: "og:url",
+        content: "https://learn-stash-share.lovable.app/my-materials",
+      },
+      { name: "twitter:card", content: "summary" },
+      { name: "twitter:title", content: "My Materials | Learnova" },
+      {
+        name: "twitter:description",
+        content: "Manage, edit and delete your uploaded study materials.",
+      },
       { name: "robots", content: "noindex, nofollow" },
+    ],
+    links: [
+      {
+        rel: "canonical",
+        href: "https://learn-stash-share.lovable.app/my-materials",
+      },
     ],
   }),
   component: MyMaterials,

@@ -27,11 +27,37 @@ import {
 export const Route = createFileRoute("/_authenticated/add-material")({
   head: () => ({
     meta: [
-      { title: "Add Material | Learnova" },
-      { name: "description", content: "Upload a new study material file to your Learnova account." },
-      { property: "og:title", content: "Add Material | Learnova" },
-      { property: "og:description", content: "Upload a new study material to your account." },
+      { title: "Upload Materials | Learnova" },
+      {
+        name: "description",
+        content:
+          "Upload PDFs, slides, notes and other study materials to your Learnova account.",
+      },
+      { property: "og:title", content: "Upload Materials | Learnova" },
+      {
+        property: "og:description",
+        content:
+          "Upload PDFs, slides, notes and other study materials to your Learnova account.",
+      },
+      { property: "og:type", content: "website" },
+      {
+        property: "og:url",
+        content: "https://learn-stash-share.lovable.app/add-material",
+      },
+      { name: "twitter:card", content: "summary" },
+      { name: "twitter:title", content: "Upload Materials | Learnova" },
+      {
+        name: "twitter:description",
+        content:
+          "Upload PDFs, slides, notes and other study materials to your Learnova account.",
+      },
       { name: "robots", content: "noindex, nofollow" },
+    ],
+    links: [
+      {
+        rel: "canonical",
+        href: "https://learn-stash-share.lovable.app/add-material",
+      },
     ],
   }),
   component: AddMaterial,
