@@ -27,21 +27,25 @@ const features = [
     icon: Upload,
     title: "Upload Materials",
     text: "Add PDFs, slides, documents and images in seconds.",
+    to: "/add-material",
   },
   {
     icon: FolderOpen,
     title: "Manage Your Files",
     text: "Edit, replace or delete your material anytime.",
+    to: "/my-materials",
   },
   {
     icon: Share2,
     title: "Public Sharing",
     text: "Make a material public and share it with a link.",
+    to: "/explore",
   },
   {
     icon: Zap,
     title: "Easy Access",
     text: "Your files stay in your account, available anywhere.",
+    to: "/dashboard",
   },
 ];
 
