@@ -12,10 +12,34 @@ export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({
     meta: [
       { title: "Dashboard | Learnova" },
-      { name: "description", content: "Your Learnova dashboard with study material statistics." },
+      {
+        name: "description",
+        content:
+          "Your Learnova dashboard with study material statistics and recent uploads.",
+      },
       { property: "og:title", content: "Dashboard | Learnova" },
-      { property: "og:description", content: "Your study material statistics at a glance." },
+      {
+        property: "og:description",
+        content: "Your study material statistics at a glance.",
+      },
+      { property: "og:type", content: "website" },
+      {
+        property: "og:url",
+        content: "https://learn-stash-share.lovable.app/dashboard",
+      },
+      { name: "twitter:card", content: "summary" },
+      { name: "twitter:title", content: "Dashboard | Learnova" },
+      {
+        name: "twitter:description",
+        content: "Your study material statistics at a glance.",
+      },
       { name: "robots", content: "noindex, nofollow" },
+    ],
+    links: [
+      {
+        rel: "canonical",
+        href: "https://learn-stash-share.lovable.app/dashboard",
+      },
     ],
   }),
   component: Dashboard,
