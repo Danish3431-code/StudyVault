@@ -16,7 +16,7 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "Learnova — Share & Download Free Study Materials" },
       {
         property: "og:description",
-        content: "Upload, manage, and share your study materials in one simple platform.",
+        content: "Learnova lets students upload, organise and share study materials — PDFs, slides and notes — free, in one simple platform.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "/" },

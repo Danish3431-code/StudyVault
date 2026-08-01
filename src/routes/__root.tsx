@@ -81,18 +81,22 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Learnova — Study. Store. Share." },
+      { title: "Learnova — Share & Download Free Study Materials" },
       {
         name: "description",
-        content: "Upload, manage, and share your study materials in one simple platform.",
+        content: "Learnova lets students upload, organise and share study materials — PDFs, slides and notes — free, in one simple platform.",
       },
-      { property: "og:title", content: "Learnova — Study. Store. Share." },
+      { property: "og:title", content: "Learnova — Share & Download Free Study Materials" },
       {
         property: "og:description",
-        content: "Upload, manage, and share your study materials in one simple platform.",
+        content: "Learnova lets students upload, organise and share study materials — PDFs, slides and notes — free, in one simple platform.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Learnova — Share & Download Free Study Materials" },
+      { name: "twitter:description", content: "Learnova lets students upload, organise and share study materials — PDFs, slides and notes — free, in one simple platform." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/44c763ab-e88e-47ee-ab1d-5fe843741870" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/44c763ab-e88e-47ee-ab1d-5fe843741870" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
