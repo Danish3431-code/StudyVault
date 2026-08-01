@@ -142,7 +142,7 @@ function RootComponent() {
             {/* Required: nested routes render here. */}
             <Outlet />
           </main>
-          <footer className="border-t border-border py-6 text-center text-sm text-muted-foreground">
+          <footer className="border-t border-border py-6 text-center text-sm text-primary">
             @ByDani
           </footer>
         </div>
