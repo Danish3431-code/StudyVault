@@ -17,7 +17,7 @@ export function MaterialCard({
     <Card className="flex h-full flex-col">
       <CardHeader className="gap-2">
         <div className="flex items-start justify-between gap-3">
-          <h3 className="text-base font-semibold leading-snug break-words">{material.title}</h3>
+          <h2 className="text-base font-semibold leading-snug break-words">{material.title}</h2>
           <Badge variant={isPublic ? "default" : "secondary"} className="shrink-0">
             {isPublic ? (
               <Globe className="mr-1 h-3 w-3" />

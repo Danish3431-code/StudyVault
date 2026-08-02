@@ -28,20 +28,61 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { downloadFile, openFile } from "@/lib/fileAccess";
 import { deleteMaterial } from "@/lib/materialActions";
+import { getMaterialMetadata } from "@/lib/materials.functions";
 import { formatDate, formatSize, type Material } from "@/lib/materials";
 
+const BASE_URL = "https://learn-stash-share.lovable.app";
+
 export const Route = createFileRoute("/material/$id")({
-  head: () => ({
-    meta: [
-      { title: "Study Material Details | Learnova" },
-      { name: "description", content: "View, download and share a study material posted on Learnova." },
-      { property: "og:title", content: "Study Material Details | Learnova" },
-      { property: "og:description", content: "View and download a study material on Learnova." },
-      { property: "og:type", content: "article" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "robots", content: "index, follow" },
-    ],
-  }),
+  loader: async ({ params }) => {
+    return getMaterialMetadata({ data: { id: params.id } });
+  },
+  head: ({ params, loaderData }) => {
+    const isPublic = loaderData?.isPublic === true;
+    const title = isPublic && loaderData.title
+      ? `${loaderData.title} | Free Study Material on Learnova`
+      : "Study Material Details | Learnova";
+    const description = isPublic && loaderData.title
+      ? `Download "${loaderData.title}" — ${loaderData.subject} study material shared on Learnova.`
+      : "View, download and share a study material posted on Learnova.";
+    const url = `${BASE_URL}/material/${params.id}`;
+
+    const scripts = isPublic && loaderData
+      ? [
+          {
+            type: "application/ld+json" as const,
+            children: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Article",
+              headline: loaderData.title,
+              description: `Download "${loaderData.title}" — ${loaderData.subject} study material shared on Learnova.`,
+              author: {
+                "@type": "Person",
+                name: loaderData.author ?? "Unknown",
+              },
+              datePublished: loaderData.createdAt,
+            }),
+          },
+        ]
+      : [];
+
+    return {
+      meta: [
+        { title },
+        { name: "description", content: description },
+        { property: "og:title", content: title },
+        { property: "og:description", content: description },
+        { property: "og:type", content: "article" },
+        { property: "og:url", content: url },
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:title", content: title },
+        { name: "twitter:description", content: description },
+        { name: "robots", content: "index, follow" },
+      ],
+      links: [{ rel: "canonical", href: url }],
+      scripts,
+    };
+  },
 
   component: MaterialDetails,
 });
