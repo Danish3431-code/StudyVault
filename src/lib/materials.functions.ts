@@ -19,7 +19,7 @@ type MaterialMetadata =
     };
 
 export const getMaterialMetadata = createServerFn({ method: "GET" })
-  .inputValidator((data) => z.object({ id: z.string().uuid() }).parse(data))
+  .validator((data) => z.object({ id: z.string().uuid() }).parse(data))
   .handler(async ({ data }): Promise<MaterialMetadata> => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: material, error } = await supabaseAdmin
