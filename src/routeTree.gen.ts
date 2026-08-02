@@ -14,6 +14,7 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as ExploreRouteImport } from './routes/explore'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as SignupRouteImport } from './routes/signup'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as AuthenticatedAddMaterialRouteImport } from './routes/_authenticated/add-material'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedMyMaterialsRouteImport } from './routes/_authenticated/my-materials'
@@ -43,6 +44,11 @@ const LoginRoute = LoginRouteImport.update({
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
   path: '/signup',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAddMaterialRoute =
@@ -84,6 +90,7 @@ export interface FileRoutesByFullPath {
   '/explore': typeof ExploreRoute
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/add-material': typeof AuthenticatedAddMaterialRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/my-materials': typeof AuthenticatedMyMaterialsRoute
@@ -96,6 +103,7 @@ export interface FileRoutesByTo {
   '/explore': typeof ExploreRoute
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/add-material': typeof AuthenticatedAddMaterialRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/my-materials': typeof AuthenticatedMyMaterialsRoute
@@ -110,6 +118,7 @@ export interface FileRoutesById {
   '/explore': typeof ExploreRoute
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/_authenticated/add-material': typeof AuthenticatedAddMaterialRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/my-materials': typeof AuthenticatedMyMaterialsRoute
@@ -124,6 +133,7 @@ export interface FileRouteTypes {
     | '/explore'
     | '/login'
     | '/signup'
+    | '/sitemap.xml'
     | '/add-material'
     | '/dashboard'
     | '/my-materials'
@@ -136,6 +146,7 @@ export interface FileRouteTypes {
     | '/explore'
     | '/login'
     | '/signup'
+    | '/sitemap.xml'
     | '/add-material'
     | '/dashboard'
     | '/my-materials'
@@ -149,6 +160,7 @@ export interface FileRouteTypes {
     | '/explore'
     | '/login'
     | '/signup'
+    | '/sitemap.xml'
     | '/_authenticated/add-material'
     | '/_authenticated/dashboard'
     | '/_authenticated/my-materials'
@@ -163,6 +175,7 @@ export interface RootRouteChildren {
   ExploreRoute: typeof ExploreRoute
   LoginRoute: typeof LoginRoute
   SignupRoute: typeof SignupRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   MaterialIdRoute: typeof MaterialIdRoute
 }
 
@@ -201,6 +214,13 @@ declare module '@tanstack/react-router' {
       path: '/signup'
       fullPath: '/signup'
       preLoaderRoute: typeof SignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/add-material': {
@@ -273,6 +293,7 @@ const rootRouteChildren: RootRouteChildren = {
   ExploreRoute: ExploreRoute,
   LoginRoute: LoginRoute,
   SignupRoute: SignupRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   MaterialIdRoute: MaterialIdRoute,
 }
 export const routeTree = rootRouteImport
