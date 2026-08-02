@@ -99,6 +99,7 @@ function Explore() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search by title, subject or topic"
+          aria-label="Search by title, subject or topic"
           className="pl-9"
         />
       </div>
