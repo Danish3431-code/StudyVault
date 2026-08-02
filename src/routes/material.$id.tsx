@@ -33,6 +33,26 @@ import { formatDate, formatSize, type Material } from "@/lib/materials";
 
 const BASE_URL = "https://learn-stash-share.lovable.app";
 
+function truncate(str: string, max: number) {
+  if (str.length <= max) return str;
+  return str.slice(0, max - 1).trimEnd() + "…";
+}
+
+function buildTitle(title: string) {
+  const suffix = " | Free Study Material on Learnova";
+  const maxTitle = 60 - suffix.length;
+  return truncate(title, maxTitle) + suffix;
+}
+
+function buildDescription(title: string, subject: string) {
+  const prefix = `Download "${title}" — `;
+  const suffix = ` ${subject} study material shared on Learnova.`;
+  const overhead = prefix.length + suffix.length;
+  const maxTitle = 160 - overhead;
+  const safeTitle = maxTitle > 0 ? truncate(title, maxTitle) : "";
+  return `Download "${safeTitle}" — ${subject} study material shared on Learnova.`;
+}
+
 export const Route = createFileRoute("/material/$id")({
   loader: async ({ params }) => {
     return getMaterialMetadata({ data: { id: params.id } });
@@ -40,10 +60,10 @@ export const Route = createFileRoute("/material/$id")({
   head: ({ params, loaderData }) => {
     const isPublic = loaderData?.isPublic === true;
     const title = isPublic && loaderData.title
-      ? `${loaderData.title} | Free Study Material on Learnova`
+      ? buildTitle(loaderData.title)
       : "Study Material Details | Learnova";
-    const description = isPublic && loaderData.title
-      ? `Download "${loaderData.title}" — ${loaderData.subject} study material shared on Learnova.`
+    const description = isPublic && loaderData.title && loaderData.subject
+      ? buildDescription(loaderData.title, loaderData.subject)
       : "View, download and share a study material posted on Learnova.";
     const url = `${BASE_URL}/material/${params.id}`;
 
@@ -55,7 +75,7 @@ export const Route = createFileRoute("/material/$id")({
               "@context": "https://schema.org",
               "@type": "Article",
               headline: loaderData.title,
-              description: `Download "${loaderData.title}" — ${loaderData.subject} study material shared on Learnova.`,
+              description: buildDescription(loaderData.title, loaderData.subject),
               author: {
                 "@type": "Person",
                 name: loaderData.author ?? "Unknown",
