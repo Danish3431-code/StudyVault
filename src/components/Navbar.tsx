@@ -119,6 +119,7 @@ export function Navbar() {
 
         <div className="flex items-center gap-1 md:hidden">
           <ThemeToggle />
+          {user && avatar}
           <Button
             variant="ghost"
             size="icon"
@@ -128,6 +129,7 @@ export function Navbar() {
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </Button>
         </div>
+
       </nav>
 
       {open && (
