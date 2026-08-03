@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
-import { BookOpen, Menu, X } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { BookOpen, Menu, User, X } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
+
 
 const publicLinks = [
   { to: "/", label: "Home" },
@@ -28,6 +30,24 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
+  const { data: avatarUrl } = useQuery({
+    queryKey: ["navbar-avatar", user?.id],
+    enabled: !!user,
+    queryFn: async () => {
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("avatar_url")
+        .eq("id", user!.id)
+        .maybeSingle();
+
+      if (!profile?.avatar_url) return null;
+      const { data: signed } = await supabase.storage
+        .from("avatars")
+        .createSignedUrl(profile.avatar_url, 60 * 60);
+      return signed?.signedUrl ?? null;
+    },
+  });
+
   const links = user ? privateLinks : publicLinks;
 
   async function handleLogout() {
@@ -36,6 +56,22 @@ export function Navbar() {
     setOpen(false);
     navigate({ to: "/", replace: true });
   }
+
+  const avatar = (
+    <Link
+      to="/profile"
+      aria-label="Go to profile"
+      className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-full border border-border bg-muted"
+      onClick={() => setOpen(false)}
+    >
+      {avatarUrl ? (
+        <img src={avatarUrl} alt="Profile" className="h-full w-full object-cover" />
+      ) : (
+        <User className="h-4 w-4 text-muted-foreground" />
+      )}
+    </Link>
+  );
+
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/90 backdrop-blur">
@@ -47,7 +83,7 @@ export function Navbar() {
           <span className="text-lg tracking-tight">Learnova</span>
         </Link>
 
-        <div className="hidden items-center gap-1 md:flex">
+        <div className="hidden items-center gap-2 md:flex">
           {links.map((l) => (
             <Link
               key={l.to}
@@ -62,9 +98,12 @@ export function Navbar() {
           ))}
           <ThemeToggle />
           {user ? (
-            <Button variant="outline" size="sm" onClick={handleLogout}>
-              Logout
-            </Button>
+            <div className="flex items-center gap-2 pl-2">
+              {avatar}
+              <Button variant="outline" size="sm" onClick={handleLogout}>
+                Logout
+              </Button>
+            </div>
           ) : (
             <div className="flex items-center gap-2">
               <Button variant="ghost" size="sm" asChild>
@@ -77,8 +116,10 @@ export function Navbar() {
           )}
         </div>
 
+
         <div className="flex items-center gap-1 md:hidden">
           <ThemeToggle />
+          {user && avatar}
           <Button
             variant="ghost"
             size="icon"
@@ -88,6 +129,7 @@ export function Navbar() {
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </Button>
         </div>
+
       </nav>
 
       {open && (
