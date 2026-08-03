@@ -83,7 +83,7 @@ export function Navbar() {
           <span className="text-lg tracking-tight">Learnova</span>
         </Link>
 
-        <div className="hidden items-center gap-1 md:flex">
+        <div className="hidden items-center gap-2 md:flex">
           {links.map((l) => (
             <Link
               key={l.to}
@@ -98,9 +98,12 @@ export function Navbar() {
           ))}
           <ThemeToggle />
           {user ? (
-            <Button variant="outline" size="sm" onClick={handleLogout}>
-              Logout
-            </Button>
+            <div className="flex items-center gap-2 pl-2">
+              {avatar}
+              <Button variant="outline" size="sm" onClick={handleLogout}>
+                Logout
+              </Button>
+            </div>
           ) : (
             <div className="flex items-center gap-2">
               <Button variant="ghost" size="sm" asChild>
@@ -112,6 +115,7 @@ export function Navbar() {
             </div>
           )}
         </div>
+
 
         <div className="flex items-center gap-1 md:hidden">
           <ThemeToggle />
