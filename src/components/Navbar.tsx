@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
-import { BookOpen, Menu, X } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { BookOpen, Menu, User, X } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
+
 
 const publicLinks = [
   { to: "/", label: "Home" },
