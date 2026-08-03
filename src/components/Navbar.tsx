@@ -30,6 +30,24 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
+  const { data: avatarUrl } = useQuery({
+    queryKey: ["navbar-avatar", user?.id],
+    enabled: !!user,
+    queryFn: async () => {
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("avatar_url")
+        .eq("id", user!.id)
+        .maybeSingle();
+
+      if (!profile?.avatar_url) return null;
+      const { data: signed } = await supabase.storage
+        .from("avatars")
+        .createSignedUrl(profile.avatar_url, 60 * 60);
+      return signed?.signedUrl ?? null;
+    },
+  });
+
   const links = user ? privateLinks : publicLinks;
 
   async function handleLogout() {
@@ -38,6 +56,22 @@ export function Navbar() {
     setOpen(false);
     navigate({ to: "/", replace: true });
   }
+
+  const avatar = (
+    <Link
+      to="/profile"
+      aria-label="Go to profile"
+      className="flex h-8 w-8 items-center justify-center overflow-hidden rounded-full border border-border bg-muted"
+      onClick={() => setOpen(false)}
+    >
+      {avatarUrl ? (
+        <img src={avatarUrl} alt="Profile" className="h-full w-full object-cover" />
+      ) : (
+        <User className="h-4 w-4 text-muted-foreground" />
+      )}
+    </Link>
+  );
+
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/90 backdrop-blur">
