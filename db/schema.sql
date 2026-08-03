@@ -10,8 +10,11 @@ create table if not exists public.profiles (
   id uuid primary key references auth.users(id) on delete cascade,
   full_name text not null default '',
   username text unique,
+  avatar_url text,
   created_at timestamptz not null default now()
 );
+
+alter table public.profiles add column if not exists avatar_url text;
 
 grant select on public.profiles to anon;
 grant select, insert, update on public.profiles to authenticated;
