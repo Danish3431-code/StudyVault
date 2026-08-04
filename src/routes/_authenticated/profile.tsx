@@ -210,9 +210,19 @@ function Profile() {
                     <Camera className="mr-2 h-4 w-4" />
                     {avatarSrc ? "Change photo" : "Upload photo"}
                   </Button>
-                  <p className="mt-2 text-xs text-muted-foreground">JPG or PNG, up to 2 MB.</p>
+                  <p className="mt-2 text-xs text-muted-foreground">
+                    JPG or PNG, up to 2 MB. You can crop, zoom and rotate before saving.
+                  </p>
                 </div>
               </div>
+
+              <AvatarCropDialog
+                file={pendingFile}
+                open={!!pendingFile}
+                onCancel={() => setPendingFile(null)}
+                onCropped={uploadAvatar}
+              />
+
 
               <div className="mb-6 rounded-lg bg-muted/60 px-4 py-3">
                 <p className="text-xs uppercase tracking-wide text-muted-foreground">
