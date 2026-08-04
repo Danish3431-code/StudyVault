@@ -19,11 +19,16 @@ export const Route = createFileRoute("/")({
         content: "Learnova lets students upload, organise and share study materials — PDFs, slides and notes — free, in one simple platform.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "/" },
+      { property: "og:url", content: "https://learn-stash-share.lovable.app/" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Learnova — Share & Download Free Study Materials" },
+      {
+        name: "twitter:description",
+        content: "Upload, organise and share study materials — PDFs, slides and notes — free.",
+      },
       { name: "robots", content: "index, follow" },
     ],
-    links: [{ rel: "canonical", href: "/" }],
+    links: [{ rel: "canonical", href: "https://learn-stash-share.lovable.app/" }],
     scripts: [
       {
         type: "application/ld+json",
@@ -31,11 +36,15 @@ export const Route = createFileRoute("/")({
           "@context": "https://schema.org",
           "@type": "WebSite",
           name: "Learnova",
+          url: "https://learn-stash-share.lovable.app/",
           description:
             "Upload, manage, and share study materials in one simple platform built for students.",
           potentialAction: {
             "@type": "SearchAction",
-            target: "/explore?q={search_term_string}",
+            target: {
+              "@type": "EntryPoint",
+              urlTemplate: "https://learn-stash-share.lovable.app/explore?q={search_term_string}",
+            },
             "query-input": "required name=search_term_string",
           },
         }),
@@ -76,11 +85,11 @@ const features = [
 function Index() {
   return (
     <div>
-      <section className="mx-auto max-w-6xl px-4 py-20 text-center sm:py-28">
+      <section aria-labelledby="hero-heading" className="mx-auto max-w-6xl px-4 py-20 text-center sm:py-28">
         <span className="inline-block rounded-full bg-accent px-4 py-1 text-xs font-semibold uppercase tracking-wide text-accent-foreground">
           Study material hub
         </span>
-        <h1 className="mt-6 text-4xl font-extrabold tracking-tight sm:text-6xl">
+        <h1 id="hero-heading" className="mt-6 text-4xl font-extrabold tracking-tight sm:text-6xl">
           Study. Store. <span className="text-primary">Share.</span>
         </h1>
         <p className="mx-auto mt-5 max-w-xl text-base text-muted-foreground sm:text-lg">
@@ -96,7 +105,10 @@ function Index() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 pb-24">
+      <section aria-labelledby="features-heading" className="mx-auto max-w-6xl px-4 pb-24">
+        <h2 id="features-heading" className="sr-only">
+          What you can do on Learnova
+        </h2>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {features.map((f) => (
             <Link key={f.title} to={f.to} className="group block">
@@ -105,7 +117,7 @@ function Index() {
                   <span className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-primary-foreground">
                     <f.icon className="h-5 w-5" />
                   </span>
-                  <h2 className="text-base font-semibold">{f.title}</h2>
+                  <h3 className="text-base font-semibold">{f.title}</h3>
                   <p className="mt-1 text-sm text-muted-foreground">{f.text}</p>
                 </CardContent>
               </Card>
