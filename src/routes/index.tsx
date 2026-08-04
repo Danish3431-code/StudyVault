@@ -19,11 +19,16 @@ export const Route = createFileRoute("/")({
         content: "Learnova lets students upload, organise and share study materials — PDFs, slides and notes — free, in one simple platform.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "/" },
+      { property: "og:url", content: "https://learn-stash-share.lovable.app/" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Learnova — Share & Download Free Study Materials" },
+      {
+        name: "twitter:description",
+        content: "Upload, organise and share study materials — PDFs, slides and notes — free.",
+      },
       { name: "robots", content: "index, follow" },
     ],
-    links: [{ rel: "canonical", href: "/" }],
+    links: [{ rel: "canonical", href: "https://learn-stash-share.lovable.app/" }],
     scripts: [
       {
         type: "application/ld+json",
@@ -31,11 +36,15 @@ export const Route = createFileRoute("/")({
           "@context": "https://schema.org",
           "@type": "WebSite",
           name: "Learnova",
+          url: "https://learn-stash-share.lovable.app/",
           description:
             "Upload, manage, and share study materials in one simple platform built for students.",
           potentialAction: {
             "@type": "SearchAction",
-            target: "/explore?q={search_term_string}",
+            target: {
+              "@type": "EntryPoint",
+              urlTemplate: "https://learn-stash-share.lovable.app/explore?q={search_term_string}",
+            },
             "query-input": "required name=search_term_string",
           },
         }),
