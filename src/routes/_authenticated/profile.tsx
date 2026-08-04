@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { AvatarCropDialog } from "@/components/AvatarCropDialog";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 
@@ -33,6 +34,7 @@ function Profile() {
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
+  const [pendingFile, setPendingFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const { data, isLoading } = useQuery({
@@ -77,7 +79,7 @@ function Profile() {
     }
   }, [data]);
 
-  async function onAvatarChange(e: React.ChangeEvent<HTMLInputElement>) {
+  function onAvatarChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     e.target.value = "";
     if (!file || !user) return;
@@ -91,15 +93,21 @@ function Profile() {
       return;
     }
 
-    setAvatarPreview(URL.createObjectURL(file));
+    setPendingFile(file);
+  }
+
+  async function uploadAvatar(blob: Blob) {
+    if (!user) return;
+
+    setPendingFile(null);
+    setAvatarPreview(URL.createObjectURL(blob));
     setUploading(true);
 
-    const ext = file.name.split(".").pop()?.toLowerCase() || "jpg";
-    const path = `${user.id}/avatar-${Date.now()}.${ext}`;
+    const path = `${user.id}/avatar-${Date.now()}.jpg`;
 
     const { error: uploadError } = await supabase.storage
       .from("avatars")
-      .upload(path, file, { upsert: true, contentType: file.type });
+      .upload(path, blob, { upsert: true, contentType: "image/jpeg" });
 
     if (uploadError) {
       setUploading(false);
@@ -127,9 +135,11 @@ function Profile() {
     }
 
     await queryClient.invalidateQueries({ queryKey: ["profile"] });
+    await queryClient.invalidateQueries({ queryKey: ["navbar-avatar"] });
     setAvatarPreview(null);
     toast.success("Profile picture updated!");
   }
+
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -200,9 +210,19 @@ function Profile() {
                     <Camera className="mr-2 h-4 w-4" />
                     {avatarSrc ? "Change photo" : "Upload photo"}
                   </Button>
-                  <p className="mt-2 text-xs text-muted-foreground">JPG or PNG, up to 2 MB.</p>
+                  <p className="mt-2 text-xs text-muted-foreground">
+                    JPG or PNG, up to 2 MB. You can crop, zoom and rotate before saving.
+                  </p>
                 </div>
               </div>
+
+              <AvatarCropDialog
+                file={pendingFile}
+                open={!!pendingFile}
+                onCancel={() => setPendingFile(null)}
+                onCropped={uploadAvatar}
+              />
+
 
               <div className="mb-6 rounded-lg bg-muted/60 px-4 py-3">
                 <p className="text-xs uppercase tracking-wide text-muted-foreground">
