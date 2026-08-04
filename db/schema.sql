@@ -170,8 +170,10 @@ values ('avatars', 'avatars', false)
 on conflict (id) do nothing;
 
 drop policy if exists "Avatar images viewable by authenticated" on storage.objects;
-create policy "Avatar images viewable by authenticated"
-  on storage.objects for select to authenticated using (bucket_id = 'avatars');
+drop policy if exists "Users can read own avatar" on storage.objects;
+create policy "Users can read own avatar"
+  on storage.objects for select to authenticated
+  using (bucket_id = 'avatars' and (storage.foldername(name))[1] = auth.uid()::text);
 
 drop policy if exists "Users can upload own avatar" on storage.objects;
 create policy "Users can upload own avatar"
