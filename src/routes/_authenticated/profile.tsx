@@ -79,7 +79,7 @@ function Profile() {
     }
   }, [data]);
 
-  async function onAvatarChange(e: React.ChangeEvent<HTMLInputElement>) {
+  function onAvatarChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     e.target.value = "";
     if (!file || !user) return;
@@ -93,15 +93,21 @@ function Profile() {
       return;
     }
 
-    setAvatarPreview(URL.createObjectURL(file));
+    setPendingFile(file);
+  }
+
+  async function uploadAvatar(blob: Blob) {
+    if (!user) return;
+
+    setPendingFile(null);
+    setAvatarPreview(URL.createObjectURL(blob));
     setUploading(true);
 
-    const ext = file.name.split(".").pop()?.toLowerCase() || "jpg";
-    const path = `${user.id}/avatar-${Date.now()}.${ext}`;
+    const path = `${user.id}/avatar-${Date.now()}.jpg`;
 
     const { error: uploadError } = await supabase.storage
       .from("avatars")
-      .upload(path, file, { upsert: true, contentType: file.type });
+      .upload(path, blob, { upsert: true, contentType: "image/jpeg" });
 
     if (uploadError) {
       setUploading(false);
@@ -129,9 +135,11 @@ function Profile() {
     }
 
     await queryClient.invalidateQueries({ queryKey: ["profile"] });
+    await queryClient.invalidateQueries({ queryKey: ["navbar-avatar"] });
     setAvatarPreview(null);
     toast.success("Profile picture updated!");
   }
+
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
