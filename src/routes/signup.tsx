@@ -20,11 +20,11 @@ export const Route = createFileRoute("/signup")({
       { property: "og:title", content: "Sign Up Free | Learnova" },
       { property: "og:description", content: "Create a free account to share study materials." },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "/signup" },
+      { property: "og:url", content: "https://learn-stash-share.lovable.app/signup" },
       { name: "twitter:card", content: "summary" },
       { name: "robots", content: "index, follow" },
     ],
-    links: [{ rel: "canonical", href: "/signup" }],
+    links: [{ rel: "canonical", href: "https://learn-stash-share.lovable.app/signup" }],
   }),
   component: Signup,
 });

@@ -16,11 +16,11 @@ export const Route = createFileRoute("/login")({
       { property: "og:title", content: "Log In | Learnova" },
       { property: "og:description", content: "Log in to manage your study materials." },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "/login" },
+      { property: "og:url", content: "https://learn-stash-share.lovable.app/login" },
       { name: "twitter:card", content: "summary" },
       { name: "robots", content: "noindex, follow" },
     ],
-    links: [{ rel: "canonical", href: "/login" }],
+    links: [{ rel: "canonical", href: "https://learn-stash-share.lovable.app/login" }],
   }),
   component: Login,
 });
