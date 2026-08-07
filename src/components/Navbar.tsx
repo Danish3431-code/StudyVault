@@ -97,7 +97,9 @@ export function Navbar() {
               {l.label}
             </Link>
           ))}
+          <VoiceCommand />
           <ThemeToggle />
+
           {user ? (
             <div className="flex items-center gap-2 pl-2">
               {avatar}
