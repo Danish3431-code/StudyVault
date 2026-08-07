@@ -121,7 +121,9 @@ export function Navbar() {
 
 
         <div className="flex items-center gap-1 md:hidden">
+          <VoiceCommand />
           <ThemeToggle />
+
           {user && avatar}
           <Button
             variant="ghost"
