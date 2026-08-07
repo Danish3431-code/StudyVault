@@ -76,9 +76,10 @@ export function VoiceCommand() {
         .ilike("title", `%${term}%`)
         .limit(1);
 
-      if (data && data.length > 0) {
-        toast.success(`Opening "${data[0].title}"`);
-        navigate({ to: "/material/$id", params: { id: data[0].id } });
+      const hit = data?.[0];
+      if (hit) {
+        toast.success(`Opening "${hit.title}"`);
+        navigate({ to: "/material/$id", params: { id: hit.id } });
         return;
       }
     }
