@@ -5,6 +5,7 @@ import { BookOpen, Menu, User, X } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { VoiceCommand } from "@/components/VoiceCommand";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
@@ -96,7 +97,9 @@ export function Navbar() {
               {l.label}
             </Link>
           ))}
+          <VoiceCommand />
           <ThemeToggle />
+
           {user ? (
             <div className="flex items-center gap-2 pl-2">
               {avatar}
@@ -118,7 +121,9 @@ export function Navbar() {
 
 
         <div className="flex items-center gap-1 md:hidden">
+          <VoiceCommand />
           <ThemeToggle />
+
           {user && avatar}
           <Button
             variant="ghost"
