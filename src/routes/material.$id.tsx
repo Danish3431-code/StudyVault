@@ -39,18 +39,18 @@ function truncate(str: string, max: number) {
 }
 
 function buildTitle(title: string) {
-  const suffix = " | Free Study Material on Learnova";
+  const suffix = " | Free Study Material on StudyVault";
   const maxTitle = 60 - suffix.length;
   return truncate(title, maxTitle) + suffix;
 }
 
 function buildDescription(title: string, subject: string) {
   const prefix = `Download "${title}" — `;
-  const suffix = ` ${subject} study material shared on Learnova.`;
+  const suffix = ` ${subject} study material shared on StudyVault.`;
   const overhead = prefix.length + suffix.length;
   const maxTitle = 160 - overhead;
   const safeTitle = maxTitle > 0 ? truncate(title, maxTitle) : "";
-  return `Download "${safeTitle}" — ${subject} study material shared on Learnova.`;
+  return `Download "${safeTitle}" — ${subject} study material shared on StudyVault.`;
 }
 
 export const Route = createFileRoute("/material/$id")({
@@ -61,10 +61,10 @@ export const Route = createFileRoute("/material/$id")({
     const isPublic = loaderData?.isPublic === true;
     const title = isPublic && loaderData.title
       ? buildTitle(loaderData.title)
-      : "Study Material Details | Learnova";
+      : "Study Material Details | StudyVault";
     const description = isPublic && loaderData.title && loaderData.subject
       ? buildDescription(loaderData.title, loaderData.subject)
-      : "View, download and share a study material posted on Learnova.";
+      : "View, download and share a study material posted on StudyVault.";
     const url = `${BASE_URL}/material/${params.id}`;
 
     const scripts = isPublic && loaderData
