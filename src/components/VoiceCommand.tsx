@@ -66,19 +66,48 @@ export function VoiceCommand() {
       return;
     }
 
-    // Try to find a document/material by title
-    const term = cleaned.replace(/\b(document|file|material|notes?)\b/g, "").trim();
-    if (term.length >= 2) {
-      const { data } = await supabase
-        .from("materials")
-        .select("id, title")
-        .eq("visibility", "public")
-        .ilike("title", `%${term}%`)
-        .limit(1);
+    // Try to find a document/material by title / subject / topic
+    const term = cleaned
+      .replace(/\b(the|a|an|document|doc|file|material|materials|notes?|pdf|slides?)\b/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
 
-      const hit = data?.[0];
-      if (hit) {
-        toast.success(`Opening "${hit.title}"`);
+    if (term.length >= 2) {
+      const pattern = `%${term.replace(/[%_,]/g, " ")}%`;
+      const filter = user
+        ? `and(visibility.eq.public,or(title.ilike.${pattern},subject.ilike.${pattern},topic.ilike.${pattern})),and(user_id.eq.${user.id},or(title.ilike.${pattern},subject.ilike.${pattern},topic.ilike.${pattern}))`
+        : undefined;
+
+      let query = supabase.from("materials").select("id, title, subject, topic, visibility, user_id");
+      query = filter
+        ? query.or(filter)
+        : query
+            .eq("visibility", "public")
+            .or(`title.ilike.${pattern},subject.ilike.${pattern},topic.ilike.${pattern}`);
+
+      const { data } = await query.limit(25);
+
+      const words = term.split(" ").filter((w) => w.length > 1);
+      const score = (m: { title: string; subject: string; topic: string | null }) => {
+        const title = m.title.toLowerCase();
+        const hay = `${title} ${m.subject.toLowerCase()} ${(m.topic ?? "").toLowerCase()}`;
+        let s = 0;
+        if (title === term) s += 100;
+        if (title.includes(term)) s += 50;
+        if (hay.includes(term)) s += 20;
+        s += words.filter((w) => title.includes(w)).length * 8;
+        s += words.filter((w) => hay.includes(w)).length * 3;
+        return s;
+      };
+
+      const best = (data ?? [])
+        .map((m) => ({ m, s: score(m as any) }))
+        .sort((a, b) => b.s - a.s)[0];
+
+      if (best && best.s > 0) {
+        const hit = best.m;
+        const mine = user && hit.user_id === user.id && hit.visibility !== "public";
+        toast.success(`Opening "${hit.title}"${mine ? " (your material)" : ""}`);
         navigate({ to: "/material/$id", params: { id: hit.id } });
         return;
       }
