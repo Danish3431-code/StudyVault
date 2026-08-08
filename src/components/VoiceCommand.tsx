@@ -49,21 +49,40 @@ export function VoiceCommand() {
     const text = raw.toLowerCase().trim();
     if (!text) return;
 
-    const cleaned = text
+    let cleaned = text
       .replace(/^(hey |ok |please )?(learnova|lernova)?[,\s]*/i, "")
-      .replace(/^(open|go to|show|take me to|navigate to|find|search for|look for|play)\s+(the\s+)?(document|file|material|notes)?\s*(called|named|titled)?\s*/i, "")
+      .replace(/^(open|go to|show|take me to|navigate to|find|search for|search|look for|play)\s+(the\s+)?(document|file|material|notes)?\s*(called|named|titled)?\s*/i, "")
       .trim();
 
-    const page = PAGES.find((p) => p.keywords.some((k) => cleaned.includes(k)));
-    if (page) {
-      if (page.auth && !user) {
-        toast.error("Please log in first.");
+    // Visibility scope: "search my private materials" / "search public materials"
+    let scope: "public" | "private" | null = null;
+    if (/\b(private|my own|personal)\b/.test(cleaned)) scope = "private";
+    else if (/\bpublic\b/.test(cleaned)) scope = "public";
+
+    if (scope) {
+      cleaned = cleaned
+        .replace(/\b(my|own|personal|private|public|shared)\b/g, " ")
+        .replace(/^(search|find|look for|show|in|from|for)\b/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+
+      if (scope === "private" && !user) {
+        toast.error("Please log in to search your private materials.");
         navigate({ to: "/login" });
         return;
       }
-      toast.success(`Opening ${page.label}`);
-      navigate({ to: page.to });
-      return;
+    } else {
+      const page = PAGES.find((p) => p.keywords.some((k) => cleaned.includes(k)));
+      if (page) {
+        if (page.auth && !user) {
+          toast.error("Please log in first.");
+          navigate({ to: "/login" });
+          return;
+        }
+        toast.success(`Opening ${page.label}`);
+        navigate({ to: page.to });
+        return;
+      }
     }
 
     // Try to find a document/material by title / subject / topic
@@ -72,18 +91,42 @@ export function VoiceCommand() {
       .replace(/\s+/g, " ")
       .trim();
 
+    if (scope && term.length < 2) {
+      // No search term — just open the matching list page
+      if (scope === "private") {
+        toast.success("Opening your materials");
+        navigate({ to: "/my-materials" });
+      } else {
+        toast.success("Opening public materials");
+        navigate({ to: "/explore" });
+      }
+      return;
+    }
+
     if (term.length >= 2) {
       const pattern = `%${term.replace(/[%_,]/g, " ")}%`;
-      const filter = user
-        ? `and(visibility.eq.public,or(title.ilike.${pattern},subject.ilike.${pattern},topic.ilike.${pattern})),and(user_id.eq.${user.id},or(title.ilike.${pattern},subject.ilike.${pattern},topic.ilike.${pattern}))`
-        : undefined;
+      const match = `or(title.ilike.${pattern},subject.ilike.${pattern},topic.ilike.${pattern})`;
 
       let query = supabase.from("materials").select("id, title, subject, topic, visibility, user_id");
-      query = filter
-        ? query.or(filter)
-        : query
-            .eq("visibility", "public")
-            .or(`title.ilike.${pattern},subject.ilike.${pattern},topic.ilike.${pattern}`);
+
+      if (scope === "private" && user) {
+        query = query
+          .eq("user_id", user.id)
+          .eq("visibility", "private")
+          .or(`title.ilike.${pattern},subject.ilike.${pattern},topic.ilike.${pattern}`);
+      } else if (scope === "public") {
+        query = query
+          .eq("visibility", "public")
+          .or(`title.ilike.${pattern},subject.ilike.${pattern},topic.ilike.${pattern}`);
+      } else if (user) {
+        query = query.or(
+          `and(visibility.eq.public,${match}),and(user_id.eq.${user.id},${match})`,
+        );
+      } else {
+        query = query
+          .eq("visibility", "public")
+          .or(`title.ilike.${pattern},subject.ilike.${pattern},topic.ilike.${pattern}`);
+      }
 
       const { data } = await query.limit(25);
 
@@ -111,7 +154,14 @@ export function VoiceCommand() {
         navigate({ to: "/material/$id", params: { id: hit.id } });
         return;
       }
+
+      if (scope) {
+        toast.error(`No ${scope} material matching "${term}".`);
+        navigate({ to: scope === "private" ? "/my-materials" : "/explore" });
+        return;
+      }
     }
+
 
     toast.error(`No match for "${raw}". Try "open dashboard" or a document name.`);
   }
