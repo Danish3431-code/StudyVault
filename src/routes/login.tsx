@@ -11,9 +11,9 @@ import { supabase } from "@/integrations/supabase/client";
 export const Route = createFileRoute("/login")({
   head: () => ({
     meta: [
-      { title: "Log In | Learnova" },
-      { name: "description", content: "Log in to your Learnova account to manage study materials." },
-      { property: "og:title", content: "Log In | Learnova" },
+      { title: "Log In | StudyVault" },
+      { name: "description", content: "Log in to your StudyVault account to manage study materials." },
+      { property: "og:title", content: "Log In | StudyVault" },
       { property: "og:description", content: "Log in to manage your study materials." },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://learn-stash-share.lovable.app/login" },

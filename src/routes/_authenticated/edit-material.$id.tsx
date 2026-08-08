@@ -28,9 +28,9 @@ import {
 export const Route = createFileRoute("/_authenticated/edit-material/$id")({
   head: () => ({
     meta: [
-      { title: "Edit Material | Learnova" },
+      { title: "Edit Material | StudyVault" },
       { name: "description", content: "Update your study material details or replace its file." },
-      { property: "og:title", content: "Edit Material | Learnova" },
+      { property: "og:title", content: "Edit Material | StudyVault" },
       { property: "og:description", content: "Update your study material details." },
       { name: "robots", content: "noindex, nofollow" },
     ],

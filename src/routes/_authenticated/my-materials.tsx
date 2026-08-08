@@ -25,13 +25,13 @@ import { formatDate, formatSize, type Material } from "@/lib/materials";
 export const Route = createFileRoute("/_authenticated/my-materials")({
   head: () => ({
     meta: [
-      { title: "My Materials | Learnova" },
+      { title: "My Materials | StudyVault" },
       {
         name: "description",
         content:
-          "Manage, edit and delete your uploaded study materials on Learnova.",
+          "Manage, edit and delete your uploaded study materials on StudyVault.",
       },
-      { property: "og:title", content: "My Materials | Learnova" },
+      { property: "og:title", content: "My Materials | StudyVault" },
       {
         property: "og:description",
         content: "Manage, edit and delete your uploaded study materials.",
@@ -42,7 +42,7 @@ export const Route = createFileRoute("/_authenticated/my-materials")({
         content: "https://learn-stash-share.lovable.app/my-materials",
       },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:title", content: "My Materials | Learnova" },
+      { name: "twitter:title", content: "My Materials | StudyVault" },
       {
         name: "twitter:description",
         content: "Manage, edit and delete your uploaded study materials.",

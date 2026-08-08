@@ -14,9 +14,9 @@ import { useAuth } from "@/hooks/useAuth";
 export const Route = createFileRoute("/_authenticated/profile")({
   head: () => ({
     meta: [
-      { title: "Profile | Learnova" },
-      { name: "description", content: "View and update your Learnova profile details." },
-      { property: "og:title", content: "Profile | Learnova" },
+      { title: "Profile | StudyVault" },
+      { name: "description", content: "View and update your StudyVault profile details." },
+      { property: "og:title", content: "Profile | StudyVault" },
       { property: "og:description", content: "View and update your profile details." },
       { name: "robots", content: "noindex, nofollow" },
     ],

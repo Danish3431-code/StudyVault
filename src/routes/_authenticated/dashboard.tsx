@@ -11,13 +11,13 @@ import { formatDate, type Material } from "@/lib/materials";
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({
     meta: [
-      { title: "Dashboard | Learnova" },
+      { title: "Dashboard | StudyVault" },
       {
         name: "description",
         content:
-          "Your Learnova dashboard with study material statistics and recent uploads.",
+          "Your StudyVault dashboard with study material statistics and recent uploads.",
       },
-      { property: "og:title", content: "Dashboard | Learnova" },
+      { property: "og:title", content: "Dashboard | StudyVault" },
       {
         property: "og:description",
         content: "Your study material statistics at a glance.",
@@ -28,7 +28,7 @@ export const Route = createFileRoute("/_authenticated/dashboard")({
         content: "https://learn-stash-share.lovable.app/dashboard",
       },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:title", content: "Dashboard | Learnova" },
+      { name: "twitter:title", content: "Dashboard | StudyVault" },
       {
         name: "twitter:description",
         content: "Your study material statistics at a glance.",

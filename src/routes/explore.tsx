@@ -10,15 +10,15 @@ import type { Material } from "@/lib/materials";
 export const Route = createFileRoute("/explore")({
   head: () => ({
     meta: [
-      { title: "Explore Free Study Materials & Notes | Learnova" },
+      { title: "Explore Free Study Materials & Notes | StudyVault" },
       {
         name: "description",
         content:
-          "Browse, search and download free public study materials, lecture notes and slides shared by students on Learnova.",
+          "Browse, search and download free public study materials, lecture notes and slides shared by students on StudyVault.",
       },
       {
         property: "og:title",
-        content: "Explore Free Study Materials & Notes | Learnova",
+        content: "Explore Free Study Materials & Notes | StudyVault",
       },
       {
         property: "og:description",
@@ -33,7 +33,7 @@ export const Route = createFileRoute("/explore")({
       { name: "twitter:card", content: "summary_large_image" },
       {
         name: "twitter:title",
-        content: "Explore Free Study Materials & Notes | Learnova",
+        content: "Explore Free Study Materials & Notes | StudyVault",
       },
       {
         name: "twitter:description",
@@ -52,7 +52,7 @@ export const Route = createFileRoute("/explore")({
           "@context": "https://schema.org",
           "@type": "CollectionPage",
           name: "Explore Study Materials",
-          description: "Public study materials shared by the Learnova community.",
+          description: "Public study materials shared by the StudyVault community.",
         }),
       },
     ],
