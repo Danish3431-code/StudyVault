@@ -11,13 +11,13 @@ import { supabase } from "@/integrations/supabase/client";
 export const Route = createFileRoute("/signup")({
   head: () => ({
     meta: [
-      { title: "Sign Up Free | Learnova Study Material Sharing" },
+      { title: "Sign Up Free | StudyVault Study Material Sharing" },
       {
         name: "description",
         content:
-          "Create a free Learnova account to upload, organise and share study materials with other students.",
+          "Create a free StudyVault account to upload, organise and share study materials with other students.",
       },
-      { property: "og:title", content: "Sign Up Free | Learnova" },
+      { property: "og:title", content: "Sign Up Free | StudyVault" },
       { property: "og:description", content: "Create a free account to share study materials." },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://learn-stash-share.lovable.app/signup" },

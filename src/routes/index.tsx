@@ -6,22 +6,22 @@ import { Card, CardContent } from "@/components/ui/card";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Learnova — Share & Download Free Study Materials" },
+      { title: "StudyVault — Share & Download Free Study Materials" },
       {
         name: "description",
         content:
-          "Learnova lets students upload, organise and share study materials — PDFs, slides and notes — free, in one simple platform.",
+          "StudyVault lets students upload, organise and share study materials — PDFs, slides and notes — free, in one simple platform.",
       },
       { name: "keywords", content: "study materials, student notes, share PDF notes, free study resources, lecture slides" },
-      { property: "og:title", content: "Learnova — Share & Download Free Study Materials" },
+      { property: "og:title", content: "StudyVault — Share & Download Free Study Materials" },
       {
         property: "og:description",
-        content: "Learnova lets students upload, organise and share study materials — PDFs, slides and notes — free, in one simple platform.",
+        content: "StudyVault lets students upload, organise and share study materials — PDFs, slides and notes — free, in one simple platform.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://learn-stash-share.lovable.app/" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Learnova — Share & Download Free Study Materials" },
+      { name: "twitter:title", content: "StudyVault — Share & Download Free Study Materials" },
       {
         name: "twitter:description",
         content: "Upload, organise and share study materials — PDFs, slides and notes — free.",
@@ -35,7 +35,7 @@ export const Route = createFileRoute("/")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "WebSite",
-          name: "Learnova",
+          name: "StudyVault",
           url: "https://learn-stash-share.lovable.app/",
           description:
             "Upload, manage, and share study materials in one simple platform built for students.",
@@ -107,7 +107,7 @@ function Index() {
 
       <section aria-labelledby="features-heading" className="mx-auto max-w-6xl px-4 pb-24">
         <h2 id="features-heading" className="sr-only">
-          What you can do on Learnova
+          What you can do on StudyVault
         </h2>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {features.map((f) => (

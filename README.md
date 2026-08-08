@@ -62,7 +62,7 @@ Published key: sb_publishable_AVTc2eg42mxEiX7RxoKqlg_-UbDMB09
 
  
 
-Project url:     Learnova | AppHub | Supabase
+Project url:     StudyVault | AppHub | Supabase
 
 Use environment variables for Supabase credentials.
 

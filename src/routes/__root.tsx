@@ -81,23 +81,23 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Learnova — Share & Download Free Study Materials" },
+      { title: "StudyVault — Share & Download Free Study Materials" },
       {
         name: "description",
-        content: "Learnova lets students upload, organise and share study materials — PDFs, slides and notes — free, in one simple platform.",
+        content: "StudyVault lets students upload, organise and share study materials — PDFs, slides and notes — free, in one simple platform.",
       },
-      { property: "og:title", content: "Learnova — Share & Download Free Study Materials" },
+      { property: "og:title", content: "StudyVault — Share & Download Free Study Materials" },
       {
         property: "og:description",
-        content: "Learnova lets students upload, organise and share study materials — PDFs, slides and notes — free, in one simple platform.",
+        content: "StudyVault lets students upload, organise and share study materials — PDFs, slides and notes — free, in one simple platform.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Learnova — Share & Download Free Study Materials" },
-      { name: "twitter:description", content: "Learnova lets students upload, organise and share study materials — PDFs, slides and notes — free, in one simple platform." },
+      { name: "twitter:title", content: "StudyVault — Share & Download Free Study Materials" },
+      { name: "twitter:description", content: "StudyVault lets students upload, organise and share study materials — PDFs, slides and notes — free, in one simple platform." },
       { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/44c763ab-e88e-47ee-ab1d-5fe843741870" },
       { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/44c763ab-e88e-47ee-ab1d-5fe843741870" },
-      { property: "og:site_name", content: "Learnova" },
+      { property: "og:site_name", content: "StudyVault" },
       { property: "og:locale", content: "en_US" },
     ],
     scripts: [
@@ -106,10 +106,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Organization",
-          name: "Learnova",
+          name: "StudyVault",
           url: "https://learn-stash-share.lovable.app/",
           description:
-            "Learnova is a free platform where students upload, organise and share study materials.",
+            "StudyVault is a free platform where students upload, organise and share study materials.",
         }),
       },
     ],

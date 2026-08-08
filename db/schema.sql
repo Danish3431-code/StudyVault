@@ -1,5 +1,5 @@
 -- ============================================================
--- Learnova — full database schema (run in Supabase SQL editor)
+-- StudyVault — full database schema (run in Supabase SQL editor)
 -- Creates: profiles, materials, RLS policies, storage bucket,
 -- and the trigger that auto-creates a profile on signup.
 -- Safe to re-run.
