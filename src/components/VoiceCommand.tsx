@@ -51,7 +51,7 @@ export function VoiceCommand() {
 
     const cleaned = text
       .replace(/^(hey |ok |please )?(learnova|lernova)?[,\s]*/i, "")
-      .replace(/^(open|go to|show|take me to|navigate to|find|search for)\s+/i, "")
+      .replace(/^(open|go to|show|take me to|navigate to|find|search for|look for|play)\s+(the\s+)?(document|file|material|notes)?\s*(called|named|titled)?\s*/i, "")
       .trim();
 
     const page = PAGES.find((p) => p.keywords.some((k) => cleaned.includes(k)));
