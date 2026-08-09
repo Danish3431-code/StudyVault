@@ -65,9 +65,15 @@ function Signup() {
 
   return (
     <div className="mx-auto flex max-w-md flex-col justify-center px-4 py-16">
-      <Card>
-        <CardHeader>
-          <h1 className="text-2xl font-bold tracking-tight">Create your account</h1>
+      <Card className="surface-glass glow-neon">
+        <CardHeader className="gap-1">
+          <span className="inline-flex w-fit items-center gap-2 rounded-full border border-border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-accent-foreground">
+            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-neon" />
+            Join StudyVault
+          </span>
+          <h1 className="mt-2 text-2xl font-bold tracking-tight">
+            Create your <span className="text-gradient-neon">account</span>
+          </h1>
           <p className="text-sm text-muted-foreground">Start storing your study materials.</p>
         </CardHeader>
         <CardContent>
@@ -79,6 +85,7 @@ function Signup() {
                 required
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
+                className="bg-background/40 focus-visible:ring-neon"
               />
             </div>
             <div className="space-y-2">
@@ -88,6 +95,7 @@ function Signup() {
                 required
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
+                className="bg-background/40 focus-visible:ring-neon"
               />
             </div>
             <div className="space-y-2">
@@ -99,6 +107,7 @@ function Signup() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 autoComplete="email"
+                className="bg-background/40 focus-visible:ring-neon"
               />
             </div>
             <div className="space-y-2">
@@ -111,9 +120,10 @@ function Signup() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 autoComplete="new-password"
+                className="bg-background/40 focus-visible:ring-neon"
               />
             </div>
-            <Button type="submit" className="w-full" disabled={loading}>
+            <Button type="submit" className="w-full glow-primary" disabled={loading}>
               {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               Sign Up
             </Button>
@@ -129,3 +139,4 @@ function Signup() {
     </div>
   );
 }
+
