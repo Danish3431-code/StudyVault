@@ -75,14 +75,15 @@ export function Navbar() {
 
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background/90 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-border bg-background/70 backdrop-blur-xl">
       <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
         <Link to="/" className="flex items-center gap-2 font-bold" onClick={() => setOpen(false)}>
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground glow-primary">
             <BookOpen className="h-4 w-4" />
           </span>
-          <span className="text-lg tracking-tight">StudyVault</span>
+          <span className="text-lg tracking-tight">Study<span className="text-gradient-neon">Vault</span></span>
         </Link>
+
 
         <div className="hidden items-center gap-2 md:flex">
           {links.map((l) => (
