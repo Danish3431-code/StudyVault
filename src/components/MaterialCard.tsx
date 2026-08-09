@@ -14,7 +14,7 @@ export function MaterialCard({
 }) {
   const isPublic = material.visibility === "public";
   return (
-    <Card className="flex h-full flex-col">
+    <Card className="flex h-full flex-col surface-glass transition-all duration-300 hover:-translate-y-1 hover:glow-neon">
       <CardHeader className="gap-2">
         <div className="flex items-start justify-between gap-3">
           <h2 className="text-base font-semibold leading-snug break-words">{material.title}</h2>

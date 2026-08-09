@@ -86,20 +86,21 @@ function Index() {
   return (
     <div>
       <section aria-labelledby="hero-heading" className="mx-auto max-w-6xl px-4 py-20 text-center sm:py-28">
-        <span className="inline-block rounded-full bg-accent px-4 py-1 text-xs font-semibold uppercase tracking-wide text-accent-foreground">
+        <span className="inline-flex items-center gap-2 rounded-full border border-border surface-glass px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-accent-foreground">
+          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-neon" />
           Study material hub
         </span>
         <h1 id="hero-heading" className="mt-6 text-4xl font-extrabold tracking-tight sm:text-6xl">
-          Study. Store. <span className="text-primary">Share.</span>
+          Study. Store. <span className="text-gradient-neon">Share.</span>
         </h1>
         <p className="mx-auto mt-5 max-w-xl text-base text-muted-foreground sm:text-lg">
           Upload, manage, and share your study materials in one simple platform.
         </p>
         <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-          <Button size="lg" asChild>
+          <Button size="lg" className="glow-primary" asChild>
             <Link to="/explore">Explore Materials</Link>
           </Button>
-          <Button size="lg" variant="outline" asChild>
+          <Button size="lg" variant="outline" className="surface-glass" asChild>
             <Link to="/signup">Get Started</Link>
           </Button>
         </div>
@@ -112,9 +113,9 @@ function Index() {
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {features.map((f) => (
             <Link key={f.title} to={f.to} className="group block">
-              <Card className="h-full transition-shadow group-hover:shadow-md">
+              <Card className="h-full surface-glass transition-all duration-300 group-hover:-translate-y-1 group-hover:glow-neon">
                 <CardContent className="pt-6">
-                  <span className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+                  <span className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-primary-foreground transition-shadow group-hover:glow-primary">
                     <f.icon className="h-5 w-5" />
                   </span>
                   <h3 className="text-base font-semibold">{f.title}</h3>
@@ -128,3 +129,4 @@ function Index() {
     </div>
   );
 }
+
