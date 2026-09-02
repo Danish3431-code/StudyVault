@@ -1,0 +1,1 @@
+REVOKE EXECUTE ON FUNCTION public.notify_public_material() FROM PUBLIC, anon, authenticated;
