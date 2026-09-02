@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { VoiceCommand } from "@/components/VoiceCommand";
+import { NotificationBell } from "@/components/NotificationBell";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
@@ -99,6 +100,7 @@ export function Navbar() {
             </Link>
           ))}
           <VoiceCommand />
+          <NotificationBell />
           <ThemeToggle />
 
           {user ? (
@@ -123,6 +125,7 @@ export function Navbar() {
 
         <div className="flex items-center gap-1 md:hidden">
           <VoiceCommand />
+          <NotificationBell />
           <ThemeToggle />
 
           {user && avatar}
