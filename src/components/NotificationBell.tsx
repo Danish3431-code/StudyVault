@@ -4,7 +4,6 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Bell } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -116,25 +115,33 @@ export function NotificationBell() {
     void queryClient.invalidateQueries({ queryKey: ["notifications", user!.id] });
   }
 
+  function toggle() {
+    setOpen((v) => {
+      if (!v) void markAllRead();
+      return !v;
+    });
+  }
+
   return (
-    <Popover
-      open={open}
-      onOpenChange={(v) => {
-        setOpen(v);
-        if (v) void markAllRead();
-      }}
-    >
-      <PopoverTrigger asChild>
-        <Button variant="ghost" size="icon" aria-label={`Notifications${unread ? `, ${unread} unread` : ""}`} className="relative">
+    <div className="relative">
+      <Button
+        variant="ghost"
+        size="icon"
+        onClick={toggle}
+        aria-label={`Notifications${unread ? `, ${unread} unread` : ""}`}
+        className="relative"
+      >
           <Bell className="h-5 w-5" />
           {unread > 0 && (
             <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-primary px-1 text-[10px] font-bold text-primary-foreground">
               {unread > 9 ? "9+" : unread}
             </span>
           )}
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent align="end" className="w-80 p-0">
+      </Button>
+      {open && (
+        <>
+          <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
+          <div className="absolute right-0 z-50 mt-2 w-80 overflow-hidden rounded-md border border-border bg-popover text-popover-foreground shadow-lg">
         <div className="border-b border-border px-4 py-3 text-sm font-semibold">Notifications</div>
         <div className="max-h-80 overflow-y-auto">
           {notifications.length === 0 ? (
@@ -168,7 +175,9 @@ export function NotificationBell() {
             })
           )}
         </div>
-      </PopoverContent>
-    </Popover>
+          </div>
+        </>
+      )}
+    </div>
   );
 }
