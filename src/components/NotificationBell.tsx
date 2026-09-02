@@ -103,7 +103,7 @@ export function NotificationBell() {
     return () => {
       void supabase.removeChannel(channel);
     };
-  }, [user, queryClient]);
+  }, [user?.id, queryClient]);
 
   if (!user) return null;
 
