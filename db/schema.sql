@@ -190,3 +190,74 @@ drop policy if exists "Users can delete own avatar" on storage.objects;
 create policy "Users can delete own avatar"
   on storage.objects for delete to authenticated
   using (bucket_id = 'avatars' and (storage.foldername(name))[1] = auth.uid()::text);
+
+-- ============================================================
+-- Notifications: every user is alerted when public material is shared
+-- ============================================================
+create table if not exists public.notifications (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references auth.users(id) on delete cascade,
+  actor_id uuid references auth.users(id) on delete set null,
+  material_id uuid references public.materials(id) on delete cascade,
+  title text not null,
+  body text,
+  read boolean not null default false,
+  created_at timestamptz not null default now()
+);
+
+create index if not exists notifications_user_created_idx on public.notifications(user_id, created_at desc);
+
+grant select, update, delete on public.notifications to authenticated;
+grant all on public.notifications to service_role;
+
+alter table public.notifications enable row level security;
+
+create policy "Users read own notifications" on public.notifications
+  for select to authenticated using (auth.uid() = user_id);
+create policy "Users update own notifications" on public.notifications
+  for update to authenticated using (auth.uid() = user_id) with check (auth.uid() = user_id);
+create policy "Users delete own notifications" on public.notifications
+  for delete to authenticated using (auth.uid() = user_id);
+
+create or replace function public.notify_public_material()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  actor_name text;
+begin
+  if new.visibility <> 'public' then
+    return new;
+  end if;
+  if tg_op = 'UPDATE' and old.visibility = 'public' then
+    return new;
+  end if;
+
+  select coalesce(nullif(full_name, ''), username, 'Someone') into actor_name
+  from public.profiles where id = new.user_id;
+
+  insert into public.notifications (user_id, actor_id, material_id, title, body)
+  select p.id, new.user_id, new.id,
+         coalesce(actor_name, 'Someone') || ' shared new material',
+         new.title
+  from public.profiles p
+  where p.id <> new.user_id;
+
+  return new;
+end;
+$$;
+
+revoke execute on function public.notify_public_material() from public, anon, authenticated;
+
+create trigger on_material_public_insert
+after insert on public.materials
+for each row execute function public.notify_public_material();
+
+create trigger on_material_public_update
+after update of visibility on public.materials
+for each row execute function public.notify_public_material();
+
+alter table public.notifications replica identity full;
+alter publication supabase_realtime add table public.notifications;
